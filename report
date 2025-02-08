@@ -1,0 +1,196 @@
+Сценарий 1:
+	успешное создание нового объекта (POST)
+	отправка POST /items/ json:
+		{
+		  "id": 0,
+		  "name": "test_item",
+		  "description": "test_item_description"
+		}
+	ответ:
+		201
+		{
+		  "id": 0,
+		  "name": "test_item",
+		  "description": "test_item_description"
+		}
+
+Сценарий 2:
+	провальное создание дубликата объекта (POST)
+	отправка POST /items/ json:
+		{
+		  "id": 0,
+		  "name": "test_item",
+		  "description": "test_item_description"
+		}
+	ответ:
+		201
+		{
+		  "id": 0,
+		  "name": "test_item",
+		  "description": "test_item_description"
+		}
+	отправка POST /items/ json:
+		{
+		  "id": 0,
+		  "name": "test_item",
+		  "description": "test_item_description"
+		}
+	ответ:
+		400
+		{
+		  "detail": "Item already exists"
+		}
+
+Сценарий 3:
+	успешное получение всех созданных объектов (GET)
+	отправка POST /items/ json:
+		{
+		  "id": 0,
+		  "name": "test_item",
+		  "description": "test_item_description"
+		}
+	ответ:
+		201
+		{
+		  "id": 0,
+		  "name": "test_item",
+		  "description": "test_item_description"
+		}
+	отправка POST /items/ json:
+		{
+		  "id": 1,
+		  "name": "test_item_1",
+		  "description": "test_item_description_1"
+		}
+	ответ:
+		201
+		{
+		  "id": 1,
+		  "name": "test_item_1",
+		  "description": "test_item_description_1"
+		}
+	отправка GET /items/
+	ответ:
+		200
+		{
+			"0": {
+			  "id": 0,
+			  "name": "test_item",
+			  "description": "test_item_description"
+			}
+			"1": {
+			  "id": 1,
+			  "name": "test_item_1",
+			  "description": "test_item_description_1"
+			}
+		}
+
+Сценарий 4:
+	успешное получение конкретного объекта (GET)
+	отправка POST /items/ json:
+		{
+		  "id": 0,
+		  "name": "test_item",
+		  "description": "test_item_description"
+		}
+	ответ:
+		201
+		{
+		  "id": 0,
+		  "name": "test_item",
+		  "description": "test_item_description"
+		}
+	отправка GET /items/0
+	ответ:
+		200
+		{
+		  "id": 0,
+		  "name": "test_item",
+		  "description": "test_item_description"
+		}
+
+Сценарий 5:
+	провальная попытка получения несуществующего объекта (GET)
+	отправка GET /items/0
+	ответ:
+		404
+		{
+		  "detail": "Item not found"
+		}
+
+Сценарий 6:
+	успешное обновление объекта (PUT)
+	отправка POST /items/ json:
+		{
+		  "id": 0,
+		  "name": "test_item",
+		  "description": "test_item_description"
+		}
+	ответ:
+		201
+		{
+		  "id": 0,
+		  "name": "test_item",
+		  "description": "test_item_description"
+		}
+	отправка PUT /items/0 json:
+		{
+		 "id": 0,
+ 		 "name": "test_item",
+ 		 "description": "test_item_description_u"
+		}
+	ответ:
+		200
+		{
+		 "id": 0,
+ 		 "name": "test_item",
+ 		 "description": "test_item_description_u"
+		}
+
+Сценарий 7:
+	провальное обновление несуществующего объекта (PUT)
+	отправка PUT /items/0 json:
+		{
+		  "id": 0,
+		  "name": "test_item",
+		  "description": "test_item_description"
+		}
+	ответ:
+		404
+		{
+		  "detail": "Item not found"
+		}
+
+Сценарий 8:
+	успешное удаление объекта (DELETE)
+	отправка POST /items/ json:
+		{
+		  "id": 0,
+		  "name": "test_item",
+		  "description": "test_item_description"
+		}
+	ответ:
+		201
+		{
+		  "id": 0,
+		  "name": "test_item",
+		  "description": "test_item_description"
+		}
+	отправка DELETE /items/0
+	ответ:
+		204
+	отправка GET /items/0
+	ответ:
+		404
+		{
+		 "detail": "Item not found"
+		}
+
+Сценарий 9:
+	провальное удаление несуществующего объекта (DELETE)
+	отправка DELETE /items/0
+	ответ:
+		404
+		{
+		 "detail": "Item not found"
+		}
